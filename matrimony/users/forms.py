@@ -1,6 +1,8 @@
 from django.forms import ModelForm, Form, TextInput, PasswordInput, CharField, EmailInput
 from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser
+from .models import UserProfile
+from django import forms
 
 
 class RegistrationForm(UserCreationForm):
@@ -53,3 +55,12 @@ class LoginForm(Form):
         #         'class': 'form-control'
         #     })
     )
+
+
+class UserProfileForm(forms.ModelForm):
+    date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    profile_picture = forms.ImageField(required=False)
+    
+    class Meta:
+        model = UserProfile
+        fields = ['first_name', 'last_name', 'date_of_birth', 'gender', 'age', 'profile_picture']
